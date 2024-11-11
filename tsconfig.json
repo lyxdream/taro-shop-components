@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
     "outDir": "./tsc/test",
-    "types": ["vite/client"],
+    "types": ["vite/client","vue"],
     "allowJs": true,
     "paths": {
       "@/*": ["src/*"],
