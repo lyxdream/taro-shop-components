@@ -24,26 +24,26 @@ const getCompList = (basePath) => {
   const files = fs.readdirSync(basePath)
   files.forEach((filename) => {
     const filedir = path.join(basePath, filename)
-    //根据文件路径获取文件信息，返回一个fs.Stats对象
+    // 根据文件路径获取文件信息，返回一个fs.Stats对象
     const stats = fs.statSync(filedir)
-    const isFile = stats.isFile() //是文件
-    const isDir = stats.isDirectory() //是文件夹
+    const isFile = stats.isFile() // 是文件
+    const isDir = stats.isDirectory() // 是文件夹
     if (isFile) {
       fileList.push(filedir)
     }
     if (isDir) {
-      getCompList(filedir) //递归，如果是文件夹，就继续遍历该文件夹下面的文件
+      getCompList(filedir) // 递归，如果是文件夹，就继续遍历该文件夹下面的文件
     }
   })
 }
 
 const getCompName = (name) => {
   if (!packages.length) {
-    config.nav.forEach((item, index) => {
+    config.nav.forEach((item) => {
       packages = packages.concat(item.packages)
     })
   }
-  const packageName = packages.find((item) => item.name.toLowerCase() === name.toLowerCase())
+  const packageName = packages.find(item => item.name.toLowerCase() === name.toLowerCase())
   if (packageName) {
     if (packageName?.setup === true) {
       return [packageName.name, true]
@@ -52,7 +52,6 @@ const getCompName = (name) => {
   }
   return ''
 }
-
 
 const getResolver = () => {
   const source = path.join(sourceDir, 'resolver')
@@ -90,7 +89,7 @@ fs.cp(sourceDir, toDir, { recursive: true }, (err) => {
 
   getCompList(basePath)
 
-  fileList.forEach((item, index) => {
+  fileList.forEach((item) => {
     const content = fs.readFileSync(item).toLocaleString()
     const inputs = content.match(regex)
 

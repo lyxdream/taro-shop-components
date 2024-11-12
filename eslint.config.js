@@ -5,6 +5,7 @@ import stylistic from '@stylistic/eslint-plugin'
 
 import parserVue from 'vue-eslint-parser'
 import parserTs from '@typescript-eslint/parser'
+import globals from 'globals'
 
 export default [
   pluginJs.configs.recommended,
@@ -23,7 +24,7 @@ export default [
       // typescript-eslint
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/ban-types': 'off',
-      '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-var-requires': 'off', // 禁用 no-var-requires 规则
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['error', {
         caughtErrors: 'none'
@@ -55,6 +56,8 @@ export default [
     languageOptions: {
       parser: parserVue,
       globals: {
+        ...globals.browser,
+        ...globals.node,
         vi: true,
         NodeJS: true,
         TaroGeneral: true
