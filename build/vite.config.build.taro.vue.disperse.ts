@@ -1,30 +1,26 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
-import fs from 'fs-extra'
-import configPkg from './src/config.json'
+import configPkg from '../src/config.json'
 
 const input = {}
 
 configPkg.nav.map((item) => {
   item.packages.forEach((element) => {
-    const { name, exclude, taro, setup } = element
-    if (taro === false) return // 排除非 Taro 组件
-    if (exclude != true) {
-      if (setup === true) {
-        input[name] = `./src/packages/__VUE/${name.toLowerCase()}/index.taro.ts`
-      } else {
-        const filePath = path.join(`./src/packages/__VUE/${name.toLowerCase()}/index.taro.vue`)
-        input[name] = `./src/packages/__VUE/${name.toLowerCase()}/index${fs.existsSync(filePath) ? '.taro' : ''}.vue`
-      }
-    }
-    // }
+    const { name, setup, funcCall } = element
+    const suffix = funcCall === true || setup === true ? '.ts' : '.vue'
+    input[name] = path.resolve(__dirname, `../packages/${name.toLowerCase()}/index${suffix}`)
   })
 })
 
 export default defineConfig({
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, './src') }]
+    alias: [
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, './src')
+      }
+    ]
   },
   plugins: [
     vue({
@@ -32,13 +28,13 @@ export default defineConfig({
         compilerOptions: {
           isCustomElement: (tag) => {
             return (
-              tag.startsWith('taro-') ||
-              tag.startsWith('scroll-view') ||
-              tag.startsWith('swiper') ||
-              tag.startsWith('swiper-item') ||
-              tag.startsWith('picker') ||
-              tag.startsWith('picker-view') ||
-              tag.startsWith('picker-view-column')
+              tag.startsWith('taro-')
+              || tag.startsWith('scroll-view')
+              || tag.startsWith('swiper')
+              || tag.startsWith('swiper-item')
+              || tag.startsWith('picker')
+              || tag.startsWith('picker-view')
+              || tag.startsWith('picker-view-column')
             )
           },
           whitespace: 'preserve'
@@ -56,14 +52,11 @@ export default defineConfig({
     },
     rollupOptions: {
       // 请确保外部化那些你的库中不需要的依赖
-      external: ['vue', 'vue-router', '@tarojs/taro', '@/packages/locale', '@nutui/icons-vue-taro'],
+      external: ['vue', 'vue-router', '@tarojs/taro'],
       input,
       output: {
-        paths: {
-          '@/packages/locale': '@nutui/nutui-taro/dist/packages/locale/lang'
-        },
-        dir: path.resolve(__dirname, './dist/packages'),
-        entryFileNames: (chunkInfo) => `${chunkInfo.name.toLowerCase()}/${chunkInfo.name}.js`,
+        dir: path.resolve(__dirname, '../dist/packages'),
+        entryFileNames: chunkInfo => `${chunkInfo.name.toLowerCase()}/${chunkInfo.name}.js`,
         plugins: []
       }
     },

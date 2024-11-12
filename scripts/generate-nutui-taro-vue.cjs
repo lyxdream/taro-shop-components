@@ -2,8 +2,7 @@ const packageConfig = require('../package.json')
 const config = require('../src/config.json')
 const path = require('path')
 const fs = require('fs-extra')
-let importStr = `import { App } from 'vue'
-import Locale from './locale'\n`
+let importStr = `import { App } from 'vue'\n`
 let importScssStr = `\n`
 let dts = `export {}
 declare module 'vue' {
@@ -11,25 +10,22 @@ declare module 'vue' {
 const packages = []
 config.nav.map((item) => {
   item.packages.forEach((element) => {
-    let { name, exclude, taro, setup } = element
-    if (taro !== false) {
-      if (setup === true) {
-        dts += `    Nut${name}: typeof import('@/packages/__VUE/${name.toLowerCase()}/index.taro')['default']\n`
-        importStr += `import ${name} from './__VUE/${name.toLowerCase()}/index.taro'\n`
-        importStr += `export * from './__VUE/${name.toLowerCase()}/index.taro'\n`
-      } else {
-        dts += `    Nut${name}: typeof import('@/packages/__VUE/${name.toLowerCase()}/index.taro.vue')['default']\n`
-        const filePath = path.join(`src/packages/__VUE/${name.toLowerCase()}/index.taro.vue`)
-        if (name !== 'Icon') {
-          importStr += `import ${name} from './__VUE/${name.toLowerCase()}/index${
-            fs.existsSync(filePath) ? '.taro' : ''
-          }.vue'\n`
-        }
+    let { name, funcCall,exclude, setup } = element
+    if (setup) {
+      dts += `    Nut${name}: typeof import('@packages/${name.toLowerCase()}/index')['default']\n`
+      importStr += `import ${name} from '@packages/${name.toLowerCase()}/index'\n`
+      importStr += `export * from '@packages/${name.toLowerCase()}/index'\n`
+    } else {
+      dts += `    Nut${name}: typeof import('@packages/${name.toLowerCase()}/index.vue')['default']\n`
+      importStr += `import ${name} from '@packages/${name.toLowerCase()}/index.vue'\n`
+      if (funcCall === true) {
+        importStr += `import { show${name} } from '@packages/${name.toLowerCase()}/index'\n`
+        methods.push(`show${name}`)
       }
-      importScssStr += `import './__VUE/${name.toLowerCase()}/index.scss'\n`
-      if (exclude !== true) {
-        packages.push(name)
-      }
+    }
+    importScssStr += `import '@packages/${name.toLowerCase()}/index.scss'\n`
+    if (!exclude) {
+      packages.push(name)
     }
   })
 })
@@ -43,20 +39,22 @@ let installFunction = `function install(app: App) {
     }
   })
 }`
+console.log(packages,'==packages')
 let fileStrBuild = `${importStr}
 ${installFunction}
 const version = '${packageConfig.version}'
-export { install, version, Locale, ${packages.join(',')} }
-export default { install, version, Locale}`
+export { install, version, ${packages.join(',')} }
+export default { install, version}`
 
-fs.outputFile(path.resolve(__dirname, '../src/packages/taro.build.ts'), fileStrBuild, 'utf8')
+fs.outputFile(path.resolve(__dirname, '../src/taro.build.ts'), fileStrBuild, 'utf8')
 let fileStrDev = `${importStr}
 ${installFunction}
 ${importScssStr}
-export { install, Locale, ${packages.join(',')}  }
-export default { install, version:'${packageConfig.version}', Locale}`
-fs.outputFile(path.resolve(__dirname, '../src/packages/taro.ts'), fileStrDev, 'utf8')
+export { install, ${packages.join(',')}  }
+export default { install, version:'${packageConfig.version}'}`
+fs.outputFile(path.resolve(__dirname, '../src/taro.ts'), fileStrDev, 'utf8')
 
 dts += `  }
 }`
-fs.outputFile(path.resolve(__dirname, '../packages/nutui-taro-demo/components.d.ts'), dts, 'utf8')
+// fs.outputFile(path.resolve(__dirname, '../packages/nutui-taro-demo/components.d.ts'), dts, 'utf8')
+fs.outputFile(path.resolve(__dirname, '../src/components.d.ts'), dts, 'utf8')

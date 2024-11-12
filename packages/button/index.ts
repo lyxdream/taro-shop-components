@@ -1,6 +1,6 @@
 import Button from './button.vue'
 import type { ComponentPublicInstance } from 'vue'
-import { withInstall } from '@/utils'
+import { withInstall } from '../../src/utils/with-install'
 
 withInstall(Button)
 

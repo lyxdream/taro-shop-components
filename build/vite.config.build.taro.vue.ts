@@ -8,17 +8,20 @@ export default defineConfig({
   },
   resolve: {
     alias: [
-      { 
-        find: '@', 
-        replacement: path.resolve(__dirname, './src') 
-      }]
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, '../src')
+      },
+      {
+        find: '@packages',
+        replacement: path.resolve(__dirname, '../packages')
+      }
+    ]
   },
   css: {
     preprocessorOptions: {
       scss: {
-        // example : additionalData: `@import "./src/design/styles/variables";`
-        // dont need include file extend .scss
-        additionalData: `@import "@/packages/styles/variables.scss";@import "@/sites/assets/styles/variables.scss";`
+        additionalData: `@import "@/styles/variables.scss";`
       }
     }
   },
@@ -28,14 +31,14 @@ export default defineConfig({
         compilerOptions: {
           isCustomElement: (tag) => {
             return (
-              tag.startsWith('taro-') ||
-              tag.startsWith('scroll-view') ||
-              tag.startsWith('swiper') ||
-              tag.startsWith('swiper-item') ||
-              tag.startsWith('scroll-view') ||
-              tag.startsWith('picker') ||
-              tag.startsWith('picker-view') ||
-              tag.startsWith('picker-view-column')
+              tag.startsWith('taro-')
+              || tag.startsWith('scroll-view')
+              || tag.startsWith('swiper')
+              || tag.startsWith('swiper-item')
+              || tag.startsWith('scroll-view')
+              || tag.startsWith('picker')
+              || tag.startsWith('picker-view')
+              || tag.startsWith('picker-view-column')
             )
           },
           whitespace: 'preserve'
@@ -48,17 +51,19 @@ export default defineConfig({
     target: 'es2015',
     rollupOptions: {
       // 请确保外部化那些你的库中不需要的依赖
-      external: ['vue', 'vue-router', '@tarojs/taro', '@nutui/icons-vue-taro'],
+      external: ['vue', 'vue-router', '@tarojs/taro'],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
-          vue: 'Vue'
+          vue: 'Vue',
+          '@tarojs/taro': 'Taro'
         },
-        plugins: []
+        plugins: [],
+        exports: 'named' // 禁用命名和默认导出混合使用的警告
       }
     },
     lib: {
-      entry: 'src/packages/taro.build.ts',
+      entry: 'src/taro.build.ts',
       name: 'nutui',
       fileName: () => 'nutui.umd.js',
       formats: ['umd']

@@ -20,6 +20,7 @@
     "allowJs": true,
     "paths": {
       "@/*": ["src/*"],
+      "@packages/*": ["packages/*"],
       "@wm/cq-shop-components": ["src/packages/taro.ts"]
     }
   },

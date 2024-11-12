@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { type CSSProperties, computed } from 'vue'
-import { Loading } from '@nutui/icons-vue-taro'
+// import { Loading } from '@nutui/icons-vue-taro'
 import Taro from '@tarojs/taro'
 import type { ButtonShape, ButtonType, ButtonSize, ButtonFormType } from './types'
 
