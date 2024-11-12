@@ -26,9 +26,9 @@ export interface NutUIResolverOptions {
 const nutFunctions = ['showToast', 'showNotify', 'showDialog', 'showImagePreview']
 
 function getNutResolved(name: string, options: NutUIResolverOptions): ComponentResolveResult {
-  const { importStyle = true, taro = false, autoImport = false } = options
+  const { importStyle = true, autoImport = false } = options
 
-  const packageName = taro ? '@nutui/nutui-taro' : '@nutui/nutui'
+  const packageName = '@nutui/nutui-taro'
 
   if (!importStyle) return { name, from: packageName }
 

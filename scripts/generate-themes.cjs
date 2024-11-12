@@ -1,23 +1,22 @@
-const fs = require('fs-extra');
-const path = require('path');
-const sass = require('sass');
+const fs = require('fs-extra')
+const path = require('path')
+const sass = require('sass')
 
-const config = require('../src/config.json');
+const config = require('../src/config.json')
 
 const themesEnum = {
   jdt: 'variables-jdt',
   jdb: 'variables-jdb',
   jddkh: 'variables-jddkh'
-};
-const rootDir = path.resolve(__dirname, '..');
+}
+const rootDir = path.resolve(__dirname, '..')
 
-let sassFileStr = ``  //引入的组件样式
-
+let sassFileStr = `` // 引入的组件样式
 
 // 将样式相关文件拷贝到dist目录
-const copyFiles = async ()=>{
+const copyFiles = async () => {
   let copyFilesTasks = []
-  //拷贝单个组件的index.scss
+  // 拷贝单个组件的index.scss
   config.nav.map((item) => {
     item.packages.forEach((element) => {
       let folderName = element.name.toLowerCase()
@@ -26,27 +25,26 @@ const copyFiles = async ()=>{
       }
       copyFilesTasks.push(
         fs.copy(
-            path.resolve(__dirname, `../packages/${folderName}/index.scss`),
-            path.resolve(__dirname, `../dist/packages/${folderName}/index.scss`)
-          )
-        .catch((error) => {
-          console.error(error)
-        })
+          path.resolve(__dirname, `../packages/${folderName}/index.scss`),
+          path.resolve(__dirname, `../dist/packages/${folderName}/index.scss`)
+        )
+          .catch((error) => {
+            console.error(error)
+          })
       )
     })
   })
-    //拷贝style文件夹
+  // 拷贝style文件夹
   copyFilesTasks.push(
     fs.copy(path.join(rootDir, 'src/styles'), path.join(rootDir, 'dist/styles'))
-  );
+  )
   try {
-    await Promise.all(copyFilesTasks);
+    await Promise.all(copyFilesTasks)
     console.log(`sass文件写入成功`)
   } catch (error) {
-    console.error('sass文件写入失败', error);
+    console.error('sass文件写入失败', error)
   }
 }
-
 
 // 将scss文件额外转换一份css
 const sassTocss = async () => {
@@ -54,28 +52,28 @@ const sassTocss = async () => {
   config.nav.map((item) => {
     item.packages.forEach((element) => {
       // 写入main.scss，引入变量文件variables.scss和组件样式index.scss
-      const folderName = element.name.toLowerCase();
-      const filePath = path.join(rootDir, `dist/packages/${folderName}/main.scss`);
-      const content = `@import '../../styles/variables.scss';\n@import './index.scss';\n`;
+      const folderName = element.name.toLowerCase()
+      const filePath = path.join(rootDir, `dist/packages/${folderName}/main.scss`)
+      const content = `@import '../../styles/variables.scss';\n@import './index.scss';\n`
       sassTocssTasks.push(
         (async () => {
           try {
-            await fs.outputFile(filePath, content, 'utf8');
+            await fs.outputFile(filePath, content, 'utf8')
             const result = sass.compile(filePath, { style: 'compressed' })// 编译sass为css
-            await fs.unlink(filePath);  // 删除main.scss
-            await fs.outputFile(path.join(rootDir, `dist/packages/${folderName}/index.css`), result.css, 'utf8');  // 写入index.css
+            await fs.unlink(filePath) // 删除main.scss
+            await fs.outputFile(path.join(rootDir, `dist/packages/${folderName}/index.css`), result.css, 'utf8') // 写入index.css
           } catch (error) {
-            console.error(`写入失败${folderName} SASS to CSS:`, error);
+            console.error(`写入失败${folderName} SASS to CSS:`, error)
           }
         })()
       )
     })
   })
   try {
-    await Promise.all(sassTocssTasks);
+    await Promise.all(sassTocssTasks)
     console.log(`css文件写入成功`)
   } catch (error) {
-    console.error('css文件写入失败:', error);
+    console.error('css文件写入失败:', error)
   }
 }
 
@@ -135,7 +133,7 @@ const variablesResolver = () => {
 }
 
 // 生成各个主题的themes文件
-const generateThemesFiles = ()=>{
+const generateThemesFiles = () => {
   let tasks = []
   let themes = [
     { file: 'default.scss', sourcePath: `@import '../variables.scss';` },
@@ -163,12 +161,12 @@ const generateThemesFiles = ()=>{
 
 async function generateThemes() {
   try {
-    await copyFiles(); //复制文件到dist目录
+    await copyFiles() // 复制文件到dist目录
     await sassTocss()
-    await variablesResolver()       
+    await variablesResolver()
     await generateThemesFiles()
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error)
   }
 }
 generateThemes()

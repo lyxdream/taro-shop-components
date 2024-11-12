@@ -6,9 +6,9 @@
     "emitDeclarationOnly": true
   },
   "include": [
-    "src/packages/taro.build.ts",
-    "src/packages/utils",
-     "src/packages/resolver"
+    "src/taro.build.ts",
+    "src/utils",
+     "src/resolver"
     ],
   "exclude": ["node_modules"]
 }

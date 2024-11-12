@@ -63,7 +63,7 @@ export default defineConfig({
       }
     },
     lib: {
-      entry: 'src/taro.build.ts',
+      entry: path.resolve(__dirname, '../src/taro.build.ts'),
       name: 'nutui',
       fileName: () => 'nutui.umd.js',
       formats: ['umd']

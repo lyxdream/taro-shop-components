@@ -1,18 +1,17 @@
-import gitignore from 'eslint-config-flat-gitignore'
 import pluginJs from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
 import pluginTs from 'typescript-eslint'
 import stylistic from '@stylistic/eslint-plugin'
+
 import parserVue from 'vue-eslint-parser'
 import parserTs from '@typescript-eslint/parser'
 
 export default [
-  gitignore(),
   pluginJs.configs.recommended,
   stylistic.configs.customize({
-    quoteProps: 'as-needed', // 对象属性的引号按需添加
-    commaDangle: 'never', // 禁止尾随逗号
-    braceStyle: '1tbs' // 使用 1TBS 风格的括号。
+    quoteProps: 'as-needed',
+    commaDangle: 'never',
+    braceStyle: '1tbs'
   }),
   ...pluginTs.configs.recommended,
   ...pluginVue.configs['flat/recommended'],

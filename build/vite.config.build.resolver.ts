@@ -8,7 +8,7 @@ export default defineConfig({
     minify: false,
     target: 'es2015',
     lib: {
-      entry: path.resolve(__dirname, './src/packages/resolver/index.ts'),
+      entry: path.resolve(__dirname, '../src/resolver/index.ts'),
       name: 'name',
       fileName: (format) => {
         if (format === 'es') {
@@ -21,7 +21,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        dir: path.resolve(__dirname, './dist/resolver')
+        dir: path.resolve(__dirname, '../dist/resolver')
       }
     },
     emptyOutDir: false
