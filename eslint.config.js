@@ -6,8 +6,10 @@ import stylistic from '@stylistic/eslint-plugin'
 import parserVue from 'vue-eslint-parser'
 import parserTs from '@typescript-eslint/parser'
 import globals from 'globals'
+import gitignore from 'eslint-config-flat-gitignore'
 
 export default [
+  gitignore(),
   pluginJs.configs.recommended,
   stylistic.configs.customize({
     quoteProps: 'as-needed',

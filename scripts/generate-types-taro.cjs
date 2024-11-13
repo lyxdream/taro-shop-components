@@ -2,13 +2,12 @@ const config = require('../src/config.json')
 const path = require('path')
 const fs = require('fs')
 
-const sourceDir = path.resolve(__dirname, './../tsc/type/src/packages') // 拷贝的源文件夹
+const sourceDir = path.resolve(__dirname, './../tsc/type') // 拷贝的源文件夹
+const toDir = path.resolve(__dirname, '../dist/types') // 目标目录 dist/types
 
-const toDir = path.resolve(__dirname, './../dist/types') // ./../dist
+const basePath = path.join(toDir, 'packages')
 
-const basePath = path.join(toDir, '__VUE')
-
-const fileList = []
+const fileList = [] // 存放文件
 
 let packages = []
 
@@ -18,12 +17,16 @@ declare type Install<T> = T & {
 };\n`
 const start = 'declare const _default:'
 const end = ';\nexport default _default;\n'
+// 匹配从 start 开始到 end结束的字符串，并捕获中间的部分。
 const regex = new RegExp(`${start}([\\s\\S]*?)${end}`)
 
+// 递归push文件路径到到fileList
 const getCompList = (basePath) => {
   const files = fs.readdirSync(basePath)
+  console.log(files, '==files')
   files.forEach((filename) => {
     const filedir = path.join(basePath, filename)
+    // console.log(filedir, '==filedir')
     // 根据文件路径获取文件信息，返回一个fs.Stats对象
     const stats = fs.statSync(filedir)
     const isFile = stats.isFile() // 是文件
@@ -37,6 +40,7 @@ const getCompList = (basePath) => {
   })
 }
 
+// 获取组件名  [ 'Button', true ]
 const getCompName = (name) => {
   if (!packages.length) {
     config.nav.forEach((item) => {
@@ -53,18 +57,23 @@ const getCompName = (name) => {
   return ''
 }
 
+// 获取文件名
+const getFileName = (filePath) => {
+  // 如：C:\Users\m1780\Desktop\新建文件夹\cq-shop-components-vite\dist\types\packages\button\button.vue.d.ts
+  const lastSeparatorIndex = filePath.lastIndexOf(path.sep) // 获取最后一个路径分隔符的位置
+  let name = filePath.substring(0, lastSeparatorIndex)
+  // C:\Users\m1780\Desktop\新建文件夹\cq-shop-components-vite\dist\types\packages\button
+  name = name.substring(name.lastIndexOf(path.sep) + 1)
+  // path.sep 返回当前操作系统的路径分隔符。在 Windows 上是 \，在 macOS 和 Linux 上是 /。
+  return name
+}
+
+// resolver文件夹
 const getResolver = () => {
-  const source = path.join(sourceDir, 'resolver')
-  const to = path.resolve(__dirname, './../dist/resolver')
+  const source = path.resolve(__dirname, '../tsc/type/src/resolver')
+  // const source = path.join(sourceDir, 'resolver')
+  const to = path.resolve(__dirname, '../dist/types/resolver')
   fs.cp(source, to, { recursive: true }, (err) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-  })
-  const pkgJsonSource = path.resolve(__dirname, './../src/packages/resolver/package.json')
-  const pkgJsonTo = path.resolve(__dirname, './../dist/resolver/package.json')
-  fs.cp(pkgJsonSource, pkgJsonTo, (err) => {
     if (err) {
       console.error(err)
       return
@@ -78,8 +87,8 @@ fs.cp(sourceDir, toDir, { recursive: true }, (err) => {
     return
   }
 
-  const oldName = path.join(toDir, 'taro.build.d.ts')
-  const newName = path.join(toDir, 'index.d.ts')
+  const oldName = path.join(toDir, 'src/taro.build.d.ts') // copy之前的目录
+  const newName = path.join(toDir, 'index.d.ts')// copy之后的目录
 
   fs.rename(oldName, newName, (err) => {
     if (err) {
@@ -94,8 +103,7 @@ fs.cp(sourceDir, toDir, { recursive: true }, (err) => {
     const inputs = content.match(regex)
 
     if (inputs && inputs.length) {
-      let name = item.substring(0, item.lastIndexOf('/'))
-      name = name.substring(name.lastIndexOf('/') + 1)
+      let name = getFileName(item)
       const _ComponentName = getCompName(name)
       if (_ComponentName) {
         const [componentName, setup] = _ComponentName
