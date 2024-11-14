@@ -15,13 +15,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
-    "outDir": "./tsc/test",
+    "outDir": "./tsc/type",
     "types": ["vite/client","vue"],
     "allowJs": true,
     "paths": {
       "@/*": ["src/*"],
-      "@packages/*": ["packages/*"],
-      "@wm/cq-shop-components": ["src/packages/taro.ts"]
+      "@packages/*": ["packages/*"]
     }
   },
   "include": [
