@@ -24,12 +24,14 @@
     "build:css": "npm run generate:themes:taro && vite build --config build/vite.config.build.css.ts",
     "build:resolver": "vite build --config build/vite.config.build.resolver.ts",
     "dts:taro": "rimraf ./tsc/type && vue-tsc --declaration --emitDeclarationOnly -p ./tsconfig.taro.json && npm run generate:types:taro",
+
     "generate:entry:files": "node scripts/generate-nutui-taro-vue.cjs",
     "generate:themes:taro": "node scripts/generate-themes.cjs",
     "generate:types:taro": "rimraf ./dist/types && node scripts/generate-types-taro.cjs",
     "lint": "eslint ./src ./packages",
     "lint:fix": "npm run lint --fix",
-    "build:test": "vite build --config build/vite.config.build.taro.vue.ts && npm run build:components && npm run build:css"
+    "build:test": "vite build --config build/vite.config.build.taro.vue.ts && npm run build:components && npm run build:css && npm run build:resolver && npm run dts:taro",
+    "unplugin-deps":" node scripts/generate-unplugin-deps.cjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
