@@ -7,7 +7,7 @@
     @click="handleClick"
   >
     <view class="nut-button__wrap">
-      <Loading v-if="loading" class="nut-icon-loading" />
+      <!-- <Loading v-if="loading" class="nut-icon-loading" /> -->
       <slot v-if="$slots.icon && !loading" name="icon"></slot>
       <view v-if="$slots.default" :class="{ 'nut-button__text': $slots.icon || loading }">
         <slot></slot>

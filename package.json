@@ -17,6 +17,11 @@
     "LICENSE",
     "CHANGELOG.md"
   ],
+  "sideEffects": [
+    "dist/packages/**/style/*.mjs",
+    "*.scss",
+    "*.css"
+  ],
   "scripts": {
     "prepare": "husky && npm run generate:entry:files",
     "build": "vite build --config build/vite.config.build.taro.vue.ts && npm run build:components && npm run build:css && npm run build:resolver && npm run dts:taro && node scripts/generate-unplugin-deps.cjs",
@@ -31,7 +36,7 @@
     "lint": "eslint ./src ./packages",
     "lint:fix": "npm run lint --fix",
     "build:test": "vite build --config build/vite.config.build.taro.vue.ts && npm run build:components && npm run build:css && npm run build:resolver && npm run dts:taro",
-    "unplugin-deps":" node scripts/generate-unplugin-deps.cjs"
+    "unplugin-deps":"node scripts/generate-unplugin-deps.cjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
