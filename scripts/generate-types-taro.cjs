@@ -1,15 +1,10 @@
 const config = require('../src/config.json')
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs').promises
+// const fsSync = require('fs')
 
-const sourceDir = path.resolve(__dirname, './../tsc/type') // 拷贝的源文件夹
+const sourceDir = path.resolve(__dirname, '../tsc/type') // 拷贝的源文件夹
 const toDir = path.resolve(__dirname, '../dist/types') // 目标目录 dist/types
-
-const basePath = path.join(toDir, 'packages')
-
-const fileList = [] // 存放文件
-
-let packages = []
 
 const preContent = `
 declare type Install<T> = T & {
@@ -20,28 +15,31 @@ const end = ';\nexport default _default;\n'
 // 匹配从 start 开始到 end结束的字符串，并捕获中间的部分。
 const regex = new RegExp(`${start}([\\s\\S]*?)${end}`)
 
-// 递归push文件路径到到fileList
-const getCompList = (basePath) => {
-  const files = fs.readdirSync(basePath)
-  console.log(files, '==files')
-  files.forEach((filename) => {
+// 递归push文件路径到fileList
+const getCompList = async (basePath) => {
+  const fileList = []
+  const files = await fs.readdir(basePath)
+
+  for (const filename of files) {
     const filedir = path.join(basePath, filename)
-    // console.log(filedir, '==filedir')
-    // 根据文件路径获取文件信息，返回一个fs.Stats对象
-    const stats = fs.statSync(filedir)
-    const isFile = stats.isFile() // 是文件
-    const isDir = stats.isDirectory() // 是文件夹
+    const stats = await fs.stat(filedir)
+    const isFile = stats.isFile()
+    const isDir = stats.isDirectory()
+
     if (isFile) {
       fileList.push(filedir)
     }
+
     if (isDir) {
-      getCompList(filedir) // 递归，如果是文件夹，就继续遍历该文件夹下面的文件
+      fileList.push(...await getCompList(filedir))
     }
-  })
+  }
+
+  return fileList
 }
 
 // 获取组件名  [ 'Button', true ]
-const getCompName = (name) => {
+const getCompName = (packages, name) => {
   if (!packages.length) {
     config.nav.forEach((item) => {
       packages = packages.concat(item.packages)
@@ -68,66 +66,70 @@ const getFileName = (filePath) => {
   return name
 }
 
-// resolver文件夹
-const getResolver = () => {
-  const source = path.resolve(__dirname, '../tsc/type/src/resolver')
-  // const source = path.join(sourceDir, 'resolver')
-  const to = path.resolve(__dirname, '../dist/types/resolver')
-  fs.cp(source, to, { recursive: true }, (err) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-  })
-}
+const copyFolders = async (sourceDir, distBase) => {
+  try {
+    // 获取源文件夹路径
+    const packagesDir = path.join(sourceDir, 'packages')
+    const srcDir = path.join(sourceDir, 'src')
+    // 获取目标文件夹路径
+    const distPackages = path.join(distBase, 'packages')
+    // 定义旧文件和新文件的路径
+    const indexOldName = path.join(toDir, 'taro.build.d.ts')
+    const indexNewName = path.join(toDir, 'index.d.ts')
+    let packages = []
+    // const fileList = [] // 存放文件
 
-fs.cp(sourceDir, toDir, { recursive: true }, (err) => {
-  if (err) {
-    console.error(err)
-    return
-  }
+    // 确保目标文件夹存在
+    await fs.mkdir(path.dirname(distPackages), { recursive: true })
+    await fs.mkdir(path.dirname(distBase), { recursive: true })
 
-  const oldName = path.join(toDir, 'src/taro.build.d.ts') // copy之前的目录
-  const newName = path.join(toDir, 'index.d.ts')// copy之后的目录
+    // 复制 src 文件夹内容到 dist/types
+    await fs.cp(srcDir, distBase, { recursive: true })
+    console.log(`文件夹 ${srcDir} 的内容已复制到 ${distBase}`)
 
-  fs.rename(oldName, newName, (err) => {
-    if (err) {
-      console.error(err)
-    }
-  })
+    // 重命名文件
+    await fs.rename(indexOldName, indexNewName)
+    console.log(`文件 ${indexOldName} 已重命名为 ${indexNewName}`)
 
-  getCompList(basePath)
+    // 复制 packages 文件夹内容
+    await fs.cp(packagesDir, distPackages, { recursive: true })
+    console.log(`文件夹 ${packagesDir} 的内容已复制到 ${distPackages}`)
 
-  fileList.forEach((item) => {
-    const content = fs.readFileSync(item).toLocaleString()
-    const inputs = content.match(regex)
+    // 获取文件列表
+    const fileList = await getCompList(distPackages)
+    // 处理每个文件
+    for (const item of fileList) {
+      const content = await fs.readFile(item, 'utf-8')
+      const inputs = content.match(regex)
 
-    if (inputs && inputs.length) {
-      let name = getFileName(item)
-      const _ComponentName = getCompName(name)
-      if (_ComponentName) {
-        const [componentName, setup] = _ComponentName
-        let remain = `
-declare module 'vue' {
-    interface GlobalComponents {
-        Nut${componentName}: typeof _default;
-    }
-}`
-        if (setup) {
-          let changeContent = content.replace(
-            'export default _default;',
-            `declare const _nut_default: WithInstall<typeof _default>;\nexport default _nut_default;\n${remain}`
-          )
-          changeContent = `import type { WithInstall } from '../../utils';\n` + changeContent
-          fs.writeFileSync(item, changeContent)
-        } else {
-          let changeContent = content.replace(regex, `${preContent}${start} Install<${inputs[1]}>${end}${remain}`)
-          fs.writeFileSync(item, changeContent)
+      if (inputs && inputs.length) {
+        let name = getFileName(item)
+        const _ComponentName = getCompName(packages, name)
+        if (_ComponentName) {
+          const [componentName, setup] = _ComponentName
+          let remain = `
+          declare module 'vue' {
+              interface GlobalComponents {
+                  Nut${componentName}: typeof _default;
+              }
+          }`
+          if (setup) {
+            let changeContent = content.replace(
+              'export default _default;',
+              `declare const _nut_default: WithInstall<typeof _default>;\nexport default _nut_default;\n${remain}`
+            )
+            changeContent = `import type { WithInstall } from '../../utils';\n` + changeContent
+            await fs.writeFile(item, changeContent, 'utf-8')
+          } else {
+            let changeContent = content.replace(regex, `${preContent}${start} Install<${inputs[1]}>${end}${remain}`)
+            await fs.writeFile(item, changeContent, 'utf-8')
+          }
         }
       }
     }
-  })
-
-  // resolver 类型文件
-  getResolver()
-})
+    console.log('所有文件夹内容复制成功')
+  } catch (err) {
+    console.error('文件夹内容复制失败:', err)
+  }
+}
+copyFolders(sourceDir, toDir)

@@ -8,9 +8,10 @@ let dts = `export {}
 declare module 'vue' {
   export interface GlobalComponents {\n`
 const packages = []
+const methods = []
 config.nav.map((item) => {
   item.packages.forEach((element) => {
-    let { name, funcCall,exclude, setup } = element
+    let { name, funcCall, exclude, setup } = element
     if (setup) {
       dts += `    Nut${name}: typeof import('@packages/${name.toLowerCase()}/index')['default']\n`
       importStr += `import ${name} from '@packages/${name.toLowerCase()}/index'\n`
@@ -39,18 +40,18 @@ let installFunction = `function install(app: App) {
     }
   })
 }`
-console.log(packages,'==packages')
+console.log(packages, '==packages')
 let fileStrBuild = `${importStr}
 ${installFunction}
 const version = '${packageConfig.version}'
-export { install, version, ${packages.join(',')} }
+export { install, version, ${packages.join(',')}, ${methods.join(',')}}
 export default { install, version}`
 
 fs.outputFile(path.resolve(__dirname, '../src/taro.build.ts'), fileStrBuild, 'utf8')
 let fileStrDev = `${importStr}
 ${installFunction}
 ${importScssStr}
-export { install, ${packages.join(',')}  }
+export { install, ${packages.join(',')}, ${methods.join(',')}  }
 export default { install, version:'${packageConfig.version}'}`
 fs.outputFile(path.resolve(__dirname, '../src/taro.ts'), fileStrDev, 'utf8')
 
