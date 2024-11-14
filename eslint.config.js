@@ -28,6 +28,7 @@ export default [
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/no-var-requires': 'off', // 禁用 no-var-requires 规则
       '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['error', {
         caughtErrors: 'none'
