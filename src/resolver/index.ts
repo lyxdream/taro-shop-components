@@ -9,13 +9,6 @@ export interface CqShopComponentsResolverOptions {
   importStyle?: boolean | 'css' | 'sass'
 
   /**
-   * CqShopComponents
-   *
-   * @default false
-   */
-  taro?: boolean
-
-  /**
    * compatible with unplugin-auto-import
    *
    * @default false
@@ -48,7 +41,7 @@ function getCqResolved(name: string, options: CqShopComponentsResolverOptions): 
 }
 
 /**
- * Resolver for CqShopComponents 4.0+
+ * Resolver for CqShopComponents
  *
  */
 export default function CqShopComponentsResolver(options: CqShopComponentsResolverOptions = {}): ComponentResolver {

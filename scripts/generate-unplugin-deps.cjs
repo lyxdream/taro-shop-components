@@ -56,9 +56,7 @@ export default {
 };`
 
 tasks.push(
-  fs.outputFile(path.resolve(__dirname, `../dist/cq-shop-components.es.js`), outputFileEntry, 'utf8', () => {
-    // console.log('')
-  })
+  fs.outputFile(path.resolve(__dirname, `../dist/cq-shop-components.es.js`), outputFileEntry, 'utf8')
 )
 
 styleMap.forEach((value, key) => {
@@ -67,14 +65,10 @@ styleMap.forEach((value, key) => {
   const outputStyleMjs = `import '../../../styles/reset.css';\nimport '../index.scss';\n`
   const outputStyleCssMjs = `import '../../../styles/reset.css';\nimport '../index.css';\n`
   tasks.push(
-    fs.outputFile(path.resolve(__dirname, `../dist/packages/${name}/style/index.mjs`), outputStyleMjs, 'utf8', () => {
-      // console.log('')
-    })
+    fs.outputFile(path.resolve(__dirname, `../dist/packages/${name}/style/index.mjs`), outputStyleMjs, 'utf8')
   )
   tasks.push(
-    fs.outputFile(path.resolve(__dirname, `../dist/packages/${name}/style/css.mjs`), outputStyleCssMjs, 'utf8', () => {
-      // console.log('')
-    })
+    fs.outputFile(path.resolve(__dirname, `../dist/packages/${name}/style/css.mjs`), outputStyleCssMjs, 'utf8')
   )
 })
 
