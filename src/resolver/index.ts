@@ -9,7 +9,7 @@ export interface CqShopComponentsResolverOptions {
   importStyle?: boolean | 'css' | 'sass'
 
   /**
-   * compatible with unplugin-auto-import
+   * 是否自动导入cqFunctions的函数
    *
    * @default false
    */

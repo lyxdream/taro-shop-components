@@ -63,7 +63,7 @@ npm i unplugin-vue-components -D
 ```js
 // config/index.js
 import ComponentsPlugin from 'unplugin-vue-components/webpack'
-import CqShopComponentsResolver from '@wm/cq-shop-components/dist/auto-import-resolver'
+import CqShopComponentsResolver from '@wm/cq-shop-components/dist/resolver'
 
 const config = {
   // 小程序开发
