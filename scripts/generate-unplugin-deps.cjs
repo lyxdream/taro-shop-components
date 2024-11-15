@@ -14,7 +14,7 @@ config.nav.forEach((item) => {
     styleMap.set(element.name, {
       name: element.name
     })
-    // gen entry
+    // entry
     if (element.exclude !== true) {
       let outputMjs = ''
       if (element.funcCall === true) {
@@ -27,9 +27,7 @@ export { ${element.name}, ${element.name} as default };`
       }
       let folderName = element.name.toLowerCase()
       tasks.push(
-        fs.outputFile(path.resolve(__dirname, `../dist/packages/${folderName}/index.mjs`), outputMjs, 'utf8', () => {
-          // console.log('')
-        })
+        fs.outputFile(path.resolve(__dirname, `../dist/packages/${folderName}/index.mjs`), outputMjs, 'utf8')
       )
       outputFileEntry += `export * from "./packages/${folderName}/index.mjs";\n`
       components.push(element.name)
@@ -59,9 +57,10 @@ tasks.push(
   fs.outputFile(path.resolve(__dirname, `../dist/cq-shop-components.es.js`), outputFileEntry, 'utf8')
 )
 
+// 处理css
 styleMap.forEach((value, key) => {
   const name = key.toLowerCase()
-  // gen style
+  // style
   const outputStyleMjs = `import '../../../styles/reset.css';\nimport '../index.scss';\n`
   const outputStyleCssMjs = `import '../../../styles/reset.css';\nimport '../index.css';\n`
   tasks.push(

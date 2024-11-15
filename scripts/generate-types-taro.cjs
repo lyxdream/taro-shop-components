@@ -130,11 +130,10 @@ const generateTypesDefinitions = async (sourceDir, distBase) => {
 
     // 复制 src 文件夹内容到 dist/types
     await fs.cp(srcDir, distBase, { recursive: true })
-    console.log(`文件夹 ${srcDir} 的内容已复制到 ${distBase}`)
+    console.log(`src声明文件写入成功`)
 
     // 重命名文件
     await fs.rename(indexOldName, indexNewName)
-    console.log(`文件 ${indexOldName} 已重命名为 ${indexNewName}`)
 
     // 替换index文件里的路径
     const content = await fs.readFile(indexNewName, 'utf-8')
@@ -142,13 +141,13 @@ const generateTypesDefinitions = async (sourceDir, distBase) => {
 
     // 复制 packages 文件夹内容
     await fs.cp(packagesDir, distPackages, { recursive: true })
-    console.log(`文件夹 ${packagesDir} 的内容已复制到 ${distPackages}`)
+    console.log(`packages声明文件写入成功`)
 
     await modifyTypeDefinitions(distPackages) // 处理组件声明文件的内容
 
-    console.log('所有文件夹内容复制成功')
+    console.log('所有类型声明文件写入成功')
   } catch (err) {
-    console.error('文件夹内容复制失败:', err)
+    console.error('类型声明文件写入失败:', err)
   }
 }
 generateTypesDefinitions(sourceDir, toDir)
