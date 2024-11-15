@@ -5,9 +5,7 @@ const sass = require('sass')
 const config = require('../src/config.json')
 
 const themesEnum = {
-  jdt: 'variables-jdt',
-  jdb: 'variables-jdb',
-  jddkh: 'variables-jddkh'
+  cqdj: 'variables-cqdj'
 }
 const rootDir = path.resolve(__dirname, '..')
 
@@ -137,9 +135,7 @@ const generateThemesFiles = () => {
   let tasks = []
   let themes = [
     { file: 'default.scss', sourcePath: `@import '../variables.scss';` },
-    { file: 'jdt.scss', sourcePath: `@import '../variables-jdt.scss';` },
-    { file: 'jdb.scss', sourcePath: `@import '../variables-jdb.scss';` },
-    { file: 'jddkh.scss', sourcePath: `@import '../variables-jddkh.scss';` }
+    { file: 'cqdj.scss', sourcePath: `@import '../variables-cqdj.scss';` }
   ]
 
   themes.forEach((item) => {

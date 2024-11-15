@@ -1,9 +1,6 @@
-// color
-
 // 主色调
 $primary-color: var(--cq-primary-color, #fa2c19) !default;
 $primary-color-end: var(--cq-primary-color-end, #fa6419) !default;
-
 // 辅助色
 $help-color: var(--cq-help-color, #f5f5f5) !default;
 // 标题常规文字
@@ -18,6 +15,7 @@ $white: var(--cq-white, #fff) !default;
 $black: var(--cq-black, #000) !default;
 $required-color: var(--cq-required-color, #fa2c19) !default;
 
+//暗黑主题
 $dark-background: var(--cq-dark-background, #131313) !default;
 $dark-background2: var(--cq-dark-background2, #1b1b1b) !default;
 $dark-background3: var(--cq-dark-background3, #141414) !default;
@@ -45,14 +43,13 @@ $font-family: var(
 $animation-duration: var(--cq-animation-duration, 0.25s) !default;
 $animation-timing-fun: var(--cq-animation-timing-fun, cubic-bezier(0.55, 0.085, 0.68, 0.53)) !default;
 
-// Font
+// 字体
 $font-size-0: var(--cq-font-size-0, 10px) !default;
 $font-size-1: var(--cq-font-size-1, 12px) !default;
 $font-size-2: var(--cq-font-size-2, 14px) !default;
 $font-size-3: var(--cq-font-size-3, 16px) !default;
 $font-size-4: var(--cq-font-size-4, 18px) !default;
 $font-weight-bold: var(--cq-font-weight-bold, 400) !default;
-
 $font-size-small: var(--cq-font-size-small, $font-size-1) !default;
 $font-size-base: var(--cq-font-size-base, $font-size-2) !default;
 $font-size-large: var(--cq-font-size-large, $font-size-3) !default;

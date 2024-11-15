@@ -6,15 +6,13 @@ const sass = require('sass')
 let sassFileStr = ``
 let tasks = []
 const themesEnum = {
-  jdt: 'variables-jdt',
-  jdb: 'variables-jdb',
-  jddkh: 'variables-jddkh'
+  cqdj: 'variables-cqdj'
 }
 
 config.nav.map((item) => {
   item.packages.forEach((element) => {
     let folderName = element.name.toLowerCase()
-    console.log(folderName,'==folderName')
+    console.log(folderName, '==folderName')
     if (element.exclude != true) {
       sassFileStr += `@import '../../packages/${folderName}/index.scss';\n`
     }
@@ -32,7 +30,6 @@ config.nav.map((item) => {
 })
 
 tasks.push(fs.copy(path.resolve(__dirname, '../src/styles'), path.resolve(__dirname, '../dist/styles')))
-
 
 // 将scss文件额外转换一份css
 const sassTocss = () => {
@@ -138,9 +135,7 @@ const variablesResolver = () => {
 Promise.all(tasks).then(() => {
   let themes = [
     { file: 'default.scss', sourcePath: `@import '../variables.scss';` },
-    { file: 'jdt.scss', sourcePath: `@import '../variables-jdt.scss';` },
-    { file: 'jdb.scss', sourcePath: `@import '../variables-jdb.scss';` },
-    { file: 'jddkh.scss', sourcePath: `@import '../variables-jddkh.scss';` }
+    { file: 'cqdj.scss', sourcePath: `@import '../variables-cqdj.scss';` }
   ]
   tasks = []
   themes.forEach((item) => {
