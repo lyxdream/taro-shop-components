@@ -1,4 +1,4 @@
-.nut-button {
+.cq-button {
   position: relative;
   display: inline-block;
   width: auto;
@@ -19,7 +19,7 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
 
-  .nut-button__text {
+  .cq-button__text {
     margin-left: 5px;
   }
   &::before {
@@ -102,27 +102,27 @@
     background: $button-plain-background-color;
     background-origin: border-box;
 
-    &.nut-button--primary {
+    &.cq-button--primary {
       color: $button-primary-border-color;
       border-color: $button-primary-border-color;
     }
 
-    &.nut-button--info {
+    &.cq-button--info {
       color: $button-info-border-color;
       border-color: $button-info-border-color;
     }
 
-    &.nut-button--success {
+    &.cq-button--success {
       color: $button-success-border-color;
       border-color: $button-success-border-color;
     }
 
-    &.nut-button--danger {
+    &.cq-button--danger {
       color: $button-danger-border-color;
       border-color: $button-danger-border-color;
     }
 
-    &.nut-button--warning {
+    &.cq-button--warning {
       color: $button-warning-border-color;
       border-color: $button-warning-border-color;
     }
@@ -146,7 +146,7 @@
     padding: $button-small-padding;
     font-size: $button-small-font-size;
 
-    &.nut-button--round {
+    &.cq-button--round {
       border-radius: $button-small-round-border-radius;
     }
   }
@@ -180,72 +180,72 @@
     border-radius: 0;
   }
 }
-.nut-button--default:not([disabled]):active {
+.cq-button--default:not([disabled]):active {
   color: $button-default-color;
   background: $button-default-bg-color;
   background-origin: border-box;
   border: $button-border-width solid $button-default-border-color;
 }
-.nut-button--primary:not([disabled]):active {
+.cq-button--primary:not([disabled]):active {
   color: $button-primary-color;
   background: $button-primary-background-color;
   background-origin: border-box;
   border: $button-border-width solid transparent;
 }
 
-.nut-button--info:not([disabled]):active {
+.cq-button--info:not([disabled]):active {
   color: $button-info-color;
   background: $button-info-background-color;
   background-origin: border-box;
   border: $button-border-width solid transparent;
 }
 
-.nut-button--success:not([disabled]):active {
+.cq-button--success:not([disabled]):active {
   color: $button-success-color;
   background: $button-success-background-color;
   background-origin: border-box;
   border: $button-border-width solid transparent;
 }
 
-.nut-button--danger:not([disabled]):active {
+.cq-button--danger:not([disabled]):active {
   color: $button-danger-color;
   background: $button-danger-background-color;
   background-origin: border-box;
   border: $button-border-width solid transparent;
 }
 
-.nut-button--warning:not([disabled]):active {
+.cq-button--warning:not([disabled]):active {
   color: $button-warning-color;
   background: $button-warning-background-color;
   background-origin: border-box;
   border: $button-border-width solid transparent;
 }
-.nut-button--plain:not([disabled]):active {
+.cq-button--plain:not([disabled]):active {
   background: $button-plain-background-color;
   background-origin: border-box;
 }
-.nut-button--plain {
-  &.nut-button--primary:not([disabled]):active {
+.cq-button--plain {
+  &.cq-button--primary:not([disabled]):active {
     color: $button-primary-border-color;
     border-color: $button-primary-border-color;
   }
 
-  &.nut-button--info:not([disabled]):active {
+  &.cq-button--info:not([disabled]):active {
     color: $button-info-border-color;
     border-color: $button-info-border-color;
   }
 
-  &.nut-button--success:not([disabled]):active {
+  &.cq-button--success:not([disabled]):active {
     color: $button-success-border-color;
     border-color: $button-success-border-color;
   }
 
-  &.nut-button--danger:not([disabled]):active {
+  &.cq-button--danger:not([disabled]):active {
     color: $button-danger-border-color;
     border-color: $button-danger-border-color;
   }
 
-  &.nut-button--warning:not([disabled]):active {
+  &.cq-button--warning:not([disabled]):active {
     color: $button-warning-border-color;
     border-color: $button-warning-border-color;
   }

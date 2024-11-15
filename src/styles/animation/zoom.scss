@@ -1,4 +1,4 @@
-@keyframes nutZoomIn {
+@keyframes cqZoomIn {
   from {
     opacity: 0;
     transform: scale3d(0.3, 0.3, 0.3);
@@ -9,7 +9,7 @@
   }
 }
 
-@keyframes nutZoomOut {
+@keyframes cqZoomOut {
   from {
     opacity: 1;
   }
@@ -23,4 +23,4 @@
     opacity: 0;
   }
 }
-@include make-animation(nutZoom);
+@include make-animation(cqZoom);

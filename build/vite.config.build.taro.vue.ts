@@ -64,8 +64,8 @@ export default defineConfig({
     },
     lib: {
       entry: path.resolve(__dirname, '../src/taro.build.ts'),
-      name: 'nutui',
-      fileName: () => 'nutui.umd.js',
+      name: 'cq-shop-components',
+      fileName: () => 'cq-shop-components.umd.js',
       formats: ['umd']
     }
   }

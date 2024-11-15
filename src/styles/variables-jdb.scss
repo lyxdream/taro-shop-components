@@ -101,7 +101,7 @@ $dark-color-gray: $text-color !default;
 $dark-calendar-choose-color: rgba(227, 227, 227, 0.2) !default;
 
 $font-family: var(
-  --nut-font-family,
+  --cq-font-family,
   PingFang SC,
   Microsoft YaHei,
   Helvetica,
@@ -514,17 +514,17 @@ $checkbox-icon-disable-color: #d6d6d6 !default;
 $checkbox-label-margin-left: 15px !default;
 $checkbox-label-font-size: 14px !default;
 $checkbox-icon-font-size: 18px !default;
-$checkbox-icon-disable-color2: var(--nut-checkbox-icon-disable-color2, $help-color) !default;
-$checkbox-button-padding: var(--nut-checkbox-button-padding, 5px 18px) !default;
-$checkbox-button-font-size: var(--nut-checkbox-button-font-size, 12px) !default;
-$checkbox-button-border-radius: var(--nut-checkbox-button-border-radius, 15px) !default;
-$checkbox-button-border-color: var(--nut-checkbox-button-border-color, #f6f7f9) !default;
-$checkbox-button-background: var(--nut-checkbox-button-background, #f6f7f9) !default;
-$checkbox-button-font-color-active: var(--nut-checkbox-button-font-color-active, $primary-color) !default;
-$checkbox-button-border-color-active: var(--nut-checkbox-button-border-color-active, $primary-color) !default;
-$checkbox-button-background-active: var(--nut-checkbox-button-background-active, $primary-color) !default;
-$checkbox-display: var(--nut-checkbox-display, inline-flex) !default;
-$checkbox-margin-right: var(--nut-checkbox-margin-right, 20px) !default;
+$checkbox-icon-disable-color2: var(--cq-checkbox-icon-disable-color2, $help-color) !default;
+$checkbox-button-padding: var(--cq-checkbox-button-padding, 5px 18px) !default;
+$checkbox-button-font-size: var(--cq-checkbox-button-font-size, 12px) !default;
+$checkbox-button-border-radius: var(--cq-checkbox-button-border-radius, 15px) !default;
+$checkbox-button-border-color: var(--cq-checkbox-button-border-color, #f6f7f9) !default;
+$checkbox-button-background: var(--cq-checkbox-button-background, #f6f7f9) !default;
+$checkbox-button-font-color-active: var(--cq-checkbox-button-font-color-active, $primary-color) !default;
+$checkbox-button-border-color-active: var(--cq-checkbox-button-border-color-active, $primary-color) !default;
+$checkbox-button-background-active: var(--cq-checkbox-button-background-active, $primary-color) !default;
+$checkbox-display: var(--cq-checkbox-display, inline-flex) !default;
+$checkbox-margin-right: var(--cq-checkbox-margin-right, 20px) !default;
 
 //radio
 $radio-label-font-color: #1d1e1e !default;
@@ -979,6 +979,6 @@ $trendarrow-font-size: 14px !default;
 $trendarrow-before-icon-margin: 4px !default;
 
 // Space
-$space-gap: var(--nut-space-gap, 8px) !default;
+$space-gap: var(--cq-space-gap, 8px) !default;
 
 @import './mixins/index';

@@ -1,6 +1,6 @@
 import type { ComponentResolveResult, ComponentResolver } from 'unplugin-vue-components/types'
 
-export interface NutUIResolverOptions {
+export interface CqShopComponentsResolverOptions {
   /**
    * import style css or sass with components
    *
@@ -9,7 +9,7 @@ export interface NutUIResolverOptions {
   importStyle?: boolean | 'css' | 'sass'
 
   /**
-   * NutUI or NutUI-Taro
+   * CqShopComponents
    *
    * @default false
    */
@@ -23,12 +23,12 @@ export interface NutUIResolverOptions {
   autoImport?: boolean
 }
 
-const nutFunctions = ['showToast', 'showNotify', 'showDialog', 'showImagePreview']
+const cqFunctions = ['showToast', 'showNotify', 'showDialog', 'showImagePreview']
 
-function getNutResolved(name: string, options: NutUIResolverOptions): ComponentResolveResult {
+function getCqResolved(name: string, options: CqShopComponentsResolverOptions): ComponentResolveResult {
   const { importStyle = true, autoImport = false } = options
 
-  const packageName = '@nutui/nutui-taro'
+  const packageName = '@wm/cq-shop-components'
 
   if (!importStyle) return { name, from: packageName }
 
@@ -48,19 +48,18 @@ function getNutResolved(name: string, options: NutUIResolverOptions): ComponentR
 }
 
 /**
- * Resolver for NutUI 4.0+
+ * Resolver for CqShopComponents 4.0+
  *
- * @link https://github.com/jdf2e/nutui
  */
-export default function NutUIResolver(options: NutUIResolverOptions = {}): ComponentResolver {
+export default function CqShopComponentsResolver(options: CqShopComponentsResolverOptions = {}): ComponentResolver {
   return {
     type: 'component',
     resolve: (name) => {
       const { autoImport = false } = options
 
-      if (autoImport && nutFunctions.includes(name)) return getNutResolved(name, options)
+      if (autoImport && cqFunctions.includes(name)) return getCqResolved(name, options)
 
-      if (name.startsWith('Nut')) return getNutResolved(name.slice(3), options)
+      if (name.startsWith('Cq')) return getCqResolved(name.slice(3), options)
     }
   }
 }

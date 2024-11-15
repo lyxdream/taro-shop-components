@@ -6,10 +6,10 @@
     :formType="formType === 'button' ? undefined : formType"
     @click="handleClick"
   >
-    <view class="nut-button__wrap">
-      <!-- <Loading v-if="loading" class="nut-icon-loading" /> -->
+    <view class="cq-button__wrap">
+      <!-- <Loading v-if="loading" class="cq-icon-loading" /> -->
       <slot v-if="$slots.icon && !loading" name="icon"></slot>
-      <view v-if="$slots.default" :class="{ 'nut-button__text': $slots.icon || loading }">
+      <view v-if="$slots.default" :class="{ 'cq-button__text': $slots.icon || loading }">
         <slot></slot>
       </view>
     </view>
@@ -18,12 +18,12 @@
 
 <script setup lang="ts">
 import { type CSSProperties, computed } from 'vue'
-// import { Loading } from '@nutui/icons-vue-taro'
+// import { Loading } from ''
 import Taro from '@tarojs/taro'
 import type { ButtonShape, ButtonType, ButtonSize, ButtonFormType } from './types'
 
 defineOptions({
-  name: 'NutButton'
+  name: 'CqButton'
 })
 
 export type ButtonProps = Partial<{
@@ -59,7 +59,7 @@ const handleClick = (event: MouseEvent) => {
 }
 
 const classes = computed(() => {
-  const prefixCls = 'nut-button'
+  const prefixCls = 'cq-button'
   return {
     [prefixCls]: true,
     [`${prefixCls}--${props.type}`]: props.type,

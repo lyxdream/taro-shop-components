@@ -13,11 +13,11 @@ config.nav.map((item) => {
   item.packages.forEach((element) => {
     let { name, funcCall, exclude, setup } = element
     if (setup) {
-      dts += `    Nut${name}: typeof import('@packages/${name.toLowerCase()}/index')['default']\n`
+      dts += `    Cq${name}: typeof import('@packages/${name.toLowerCase()}/index')['default']\n`
       importStr += `import ${name} from '@packages/${name.toLowerCase()}/index'\n`
       importStr += `export * from '@packages/${name.toLowerCase()}/index'\n`
     } else {
-      dts += `    Nut${name}: typeof import('@packages/${name.toLowerCase()}/index.vue')['default']\n`
+      dts += `    Cq${name}: typeof import('@packages/${name.toLowerCase()}/index.vue')['default']\n`
       importStr += `import ${name} from '@packages/${name.toLowerCase()}/index.vue'\n`
       if (funcCall === true) {
         importStr += `import { show${name} } from '@packages/${name.toLowerCase()}/index'\n`
@@ -57,5 +57,5 @@ fs.outputFile(path.resolve(__dirname, '../src/taro.ts'), fileStrDev, 'utf8')
 
 dts += `  }
 }`
-// fs.outputFile(path.resolve(__dirname, '../packages/nutui-taro-demo/components.d.ts'), dts, 'utf8')
+// fs.outputFile(path.resolve(__dirname, '../packages/cq-shop-components-taro-demo/components.d.ts'), dts, 'utf8')
 fs.outputFile(path.resolve(__dirname, '../src/components.d.ts'), dts, 'utf8')

@@ -99,7 +99,7 @@ const parseFile = (filename, theme = 'default') => {
     for (const key in variables) {
       if (Object.prototype.hasOwnProperty.call(variables, key)) {
         const variableName = key.slice(1)
-        fileContent += `  --nut-${variableName}: #{$${variableName}};\n`
+        fileContent += `  --cq-${variableName}: #{$${variableName}};\n`
       }
     }
     fileContent += `}`

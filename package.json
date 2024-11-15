@@ -1,15 +1,15 @@
 {
-  "name": "vue3-shop-components",
+  "name": "cq-shop-components",
   "version": "1.0.0",
   "description": "taro电商组件库（支持小程序和h5）",
-  "main": "dist/nutui.umd.js",
-  "module": "dist/nutui.es.js",
+  "main": "dist/cq-shop-components.umd.js",
+  "module": "dist/cq-shop-components.es.js",
   "style": "dist/style.css",
   "type": "module",
   "typings": "dist/types/index.d.ts",
   "keywords": [],
   "author": "yinxia",
-  "license": "MIT",
+  "license": "ISC",
   "files": [
     "dist",
     "README.md",
@@ -30,7 +30,7 @@
     "build:resolver": "vite build --config build/vite.config.build.resolver.ts",
     "dts:taro": "rimraf ./tsc/type && vue-tsc --declaration --emitDeclarationOnly -p ./tsconfig.taro.json && npm run generate:types:taro",
 
-    "generate:entry:files": "node scripts/generate-nutui-taro-vue.cjs",
+    "generate:entry:files": "node scripts/generate-entry-taro-vue.cjs",
     "generate:themes:taro": "node scripts/generate-themes.cjs",
     "generate:types:taro": "rimraf ./dist/types && node scripts/generate-types-taro.cjs",
     "lint": "eslint ./src ./packages",
@@ -83,7 +83,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jdf2e/nutui.git"
+    "url": ""
   },
   "publishConfig": {
     "access": "public",

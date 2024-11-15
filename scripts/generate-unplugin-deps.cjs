@@ -56,7 +56,7 @@ export default {
 };`
 
 tasks.push(
-  fs.outputFile(path.resolve(__dirname, `../dist/nutui.es.js`), outputFileEntry, 'utf8', () => {
+  fs.outputFile(path.resolve(__dirname, `../dist/cq-shop-components.es.js`), outputFileEntry, 'utf8', () => {
     // console.log('')
   })
 )

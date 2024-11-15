@@ -8,7 +8,7 @@
 
 ```js
 import { createApp } from 'vue'
-import { Button } from '@nutui/nutui-taro'
+import { Button } from '@wm/cq-shop-components'
 
 const app = createApp()
 app.use(Button)
@@ -105,7 +105,7 @@ import type {
   ButtonFormType,
   ButtonProps,
   ButtonInstance
-} from '@nutui/nutui-taro';
+} from '@wm/cq-shop-components';
 ```
 
 ## 主题定制
@@ -116,44 +116,44 @@ import type {
 
 | 名称 | 默认值 |
 | --- | --- |
-| --nut-button-border-radius | _25px_ |
-| --nut-button-border-width | _1px_ |
-| --nut-button-icon-width | _16px_ |
-| --nut-button-default-bg-color | _var(--nut-white)_ |
-| --nut-button-default-border-color | _rgba(204, 204, 204, 1)_ |
-| --nut-button-default-color | _rgba(102, 102, 102, 1)_ |
-| --nut-button-default-padding | _0 18px_ |
-| --nut-button-mini-padding | _0 12px_ |
-| --nut-button-small-padding | _0 12px_ |
-| --nut-button-small-height | _28px_ |
-| --nut-button-mini-height | _24px_ |
-| --nut-button-default-height | _38px_ |
-| --nut-button-large-height | _48px_ |
-| --nut-button-large-line-height | _46px_ |
-| --nut-button-small-line-height | _26px_ |
-| --nut-button-block-height | _48px_ |
-| --nut-button-default-line-height | _36px_ |
-| --nut-button-block-line-height | _46px_ |
-| --nut-button-default-font-size | _var(--nut-font-size-2)_ |
-| --nut-button-large-font-size | _var(--nut-button-default-font-size)_ |
-| --nut-button-small-font-size | _var(--nut-font-size-1)_ |
-| --nut-button-mini-font-size | _var(--nut-font-size-1)_ |
-| --nut-button-mini-line-height | _1.2_ |
-| --nut-button-disabled-opacity | _0.68_ |
-| --nut-button-primary-color | _var(--nut-white)_ |
-| --nut-button-primary-border-color | _var(--nut-primary-color)_ |
-| --nut-button-primary-background-color | _linear-gradient(135deg,var(--nut-primary-color) 0%,var(--nut-primary-color-end) 100%)_ |
-| --nut-button-info-color | _var(--nut-white)_ |
-| --nut-button-info-border-color | _rgba(73, 106, 242, 1)_ |
-| --nut-button-info-background-color | _linear-gradient(315deg, rgba(73, 143, 242, 1) 0%, rgba(73, 101, 242, 1) 100%)_ |
-| --nut-button-success-color | _var(--nut-white)_ |
-| --nut-button-success-border-color | _rgba(38, 191, 38, 1)_ |
-| --nut-button-success-background-color | _linear-gradient(135deg,rgba(38, 191, 38, 1) 0%,rgba(39, 197, 48, 1) 45%,rgba(40, 207, 63, 1) 83%,rgba(41, 212, 70, 1) 100%)_ |
-| --nut-button-danger-color | _var(--nut-white)_ |
-| --nut-button-danger-border-color | _rgba(250, 44, 25, 1)_ |
-| --nut-button-danger-background-color | _rgba(250, 44, 25, 1)_ |
-| --nut-button-warning-color | _var(--nut-white)_ |
-| --nut-button-warning-border-color | _rgba(255, 158, 13, 1)_ |
-| --nut-button-warning-background-color | _linear-gradient(135deg,rgba(255, 158, 13, 1) 0%,rgba(255, 167, 13, 1) 45%,rgba(255, 182, 13, 1) 83%,rgba(255, 190, 13, 1) 100%)_ |
-| --nut-button-plain-background-color | _var(--nut-white)_ |
-| --nut-button-small-round-border-radius | _var(--nut-button-border-radius)_ |
+| --cq-button-border-radius | _25px_ |
+| --cq-button-border-width | _1px_ |
+| --cq-button-icon-width | _16px_ |
+| --cq-button-default-bg-color | _var(--cq-white)_ |
+| --cq-button-default-border-color | _rgba(204, 204, 204, 1)_ |
+| --cq-button-default-color | _rgba(102, 102, 102, 1)_ |
+| --cq-button-default-padding | _0 18px_ |
+| --cq-button-mini-padding | _0 12px_ |
+| --cq-button-small-padding | _0 12px_ |
+| --cq-button-small-height | _28px_ |
+| --cq-button-mini-height | _24px_ |
+| --cq-button-default-height | _38px_ |
+| --cq-button-large-height | _48px_ |
+| --cq-button-large-line-height | _46px_ |
+| --cq-button-small-line-height | _26px_ |
+| --cq-button-block-height | _48px_ |
+| --cq-button-default-line-height | _36px_ |
+| --cq-button-block-line-height | _46px_ |
+| --cq-button-default-font-size | _var(--cq-font-size-2)_ |
+| --cq-button-large-font-size | _var(--cq-button-default-font-size)_ |
+| --cq-button-small-font-size | _var(--cq-font-size-1)_ |
+| --cq-button-mini-font-size | _var(--cq-font-size-1)_ |
+| --cq-button-mini-line-height | _1.2_ |
+| --cq-button-disabled-opacity | _0.68_ |
+| --cq-button-primary-color | _var(--cq-white)_ |
+| --cq-button-primary-border-color | _var(--cq-primary-color)_ |
+| --cq-button-primary-background-color | _linear-gradient(135deg,var(--cq-primary-color) 0%,var(--cq-primary-color-end) 100%)_ |
+| --cq-button-info-color | _var(--cq-white)_ |
+| --cq-button-info-border-color | _rgba(73, 106, 242, 1)_ |
+| --cq-button-info-background-color | _linear-gradient(315deg, rgba(73, 143, 242, 1) 0%, rgba(73, 101, 242, 1) 100%)_ |
+| --cq-button-success-color | _var(--cq-white)_ |
+| --cq-button-success-border-color | _rgba(38, 191, 38, 1)_ |
+| --cq-button-success-background-color | _linear-gradient(135deg,rgba(38, 191, 38, 1) 0%,rgba(39, 197, 48, 1) 45%,rgba(40, 207, 63, 1) 83%,rgba(41, 212, 70, 1) 100%)_ |
+| --cq-button-danger-color | _var(--cq-white)_ |
+| --cq-button-danger-border-color | _rgba(250, 44, 25, 1)_ |
+| --cq-button-danger-background-color | _rgba(250, 44, 25, 1)_ |
+| --cq-button-warning-color | _var(--cq-white)_ |
+| --cq-button-warning-border-color | _rgba(255, 158, 13, 1)_ |
+| --cq-button-warning-background-color | _linear-gradient(135deg,rgba(255, 158, 13, 1) 0%,rgba(255, 167, 13, 1) 45%,rgba(255, 182, 13, 1) 83%,rgba(255, 190, 13, 1) 100%)_ |
+| --cq-button-plain-background-color | _var(--cq-white)_ |
+| --cq-button-small-round-border-radius | _var(--cq-button-border-radius)_ |

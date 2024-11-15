@@ -91,13 +91,13 @@ const modifyTypeDefinitions = async (distPackages) => {
           let remain = `
 declare module 'vue' {
     interface GlobalComponents {
-        Nut${componentName}: typeof _default;
+        Cq${componentName}: typeof _default;
     }
 }`
           if (setup) {
             let changeContent = content.replace(
               'export default _default;',
-              `declare const _nut_default: WithInstall<typeof _default>;\nexport default _nut_default;\n${remain}`
+              `declare const _cq_default: WithInstall<typeof _default>;\nexport default _cq_default;\n${remain}`
             )
             changeContent = `import type { WithInstall } from '../../utils';\n` + changeContent
             await fs.writeFile(item, changeContent, 'utf-8')
